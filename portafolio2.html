@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mi Portafolio</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+    }
+    header, footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 1em;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    nav {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+    nav a {
+        color: white;
+        text-decoration: none;
+    }
+    section {
+        padding: 20px;
+        max-width: 1000px;
+        margin: auto;
+        background: white;
+        margin-top: 20px;
+        border-radius: 8px;
+    }
+    .mi-foto {
+        display: block;
+        margin: 20px auto;
+        width: 200px;
+        height: auto;
+        border-radius: 50%;
+    }
+    .tabla-contenedor {
+        overflow-x: auto;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 500px;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+    }
+    .grid-proyectos {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+    }
+    .proyecto {
+        background: #eee;
+        padding: 15px;
+        border-radius: 8px;
+        position: relative;
+    }
+    .proyecto-destacado {
+        border: 2px solid red;
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background: yellow;
+        padding: 5px;
+        z-index: 10;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    button {
+        margin-top: 10px;
+        padding: 10px 15px;
+        font-size: 1em;
+        cursor: pointer;
+        border-radius: 5px;
+        border: none;
+        background-color: #333;
+        color: white;
+        transition: background-color 0.3s;
+    }
+    button:hover {
+        background-color: #555;
+    }
+    @media (min-width: 600px) {
+        body {
+            background-color: #e6f7ff;
+        }
+        nav {
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+    }
+    @media (min-width: 900px) {
+        body {
+            background-color: #fffbe6;
+        }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Diego Marquez</h1>
+    <nav>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+</header>
+
+<section id="sobre-mi">
+    <h2>Sobre mí</h2>
+    <p>Soy estudiante de Ingeniería en Sistemas Computacionales, apasionado por la programación web y el desarrollo de software.</p>
+    <img src="imagenes/foto1.jpg" alt="Mi foto" class="mi-foto">
+</section>
+
+<section id="proyectos">
+    <h2>Proyectos</h2>
+    <div class="grid-proyectos">
+        <div class="proyecto">
+            <div class="proyecto-destacado">★</div>
+            <h3>Portafolio Personal</h3>
+            <p>Página web para mostrar mis trabajos y contacto.</p>
+        </div>
+        <div class="proyecto">
+            <h3>Gestor de Tareas</h3>
+            <p>Aplicación web para organizar tareas diarias.</p>
+        </div>
+    </div>
+    <div class="tabla-contenedor">
+        <table id="tabla-proyectos">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Año</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Portafolio Personal</td>
+                    <td>Página web para mostrar mis trabajos y contacto.</td>
+                    <td>2025</td>
+                </tr>
+                <tr>
+                    <td>Gestor de Tareas</td>
+                    <td>Aplicación web para organizar tareas diarias.</td>
+                    <td>2024</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button onclick="agregarProyecto()">Agregar proyecto</button>
+    <button onclick="eliminarProyecto()">Eliminar último proyecto</button>
+    <button onclick="verificarProyectos()">Verificar proyectos</button>
+    <!-- Botones nuevos para manipular el DOM -->
+<button onclick="resaltarProyecto()">Resaltar primer proyecto</button>
+<button onclick="agregarNota()">Agregar nota al segundo proyecto</button>
+<button onclick="cambiarTitulo()">Cambiar título del segundo proyecto</button>
+
+<style>
+    .resaltado {
+        background-color: yellow;
+        border: 2px solid red;
+        font-weight: bold;
+    }
+</style>
+
+<script>
+    function resaltarProyecto() {
+        const primerProyecto = document.querySelector(".grid-proyectos .proyecto");
+        primerProyecto.classList.toggle("resaltado");
+    }
+
+    function agregarNota() {
+        const segundoProyecto = document.querySelectorAll(".grid-proyectos .proyecto")[1];
+        const nuevaNota = document.createElement("p");
+        nuevaNota.innerHTML = "📌 Nueva actualización disponible";
+        segundoProyecto.appendChild(nuevaNota);
+    }
+
+    function cambiarTitulo() {
+        const segundoProyectoTitulo = document.querySelectorAll(".grid-proyectos .proyecto h3")[1];
+        segundoProyectoTitulo.innerHTML = "Gestor de Tareas (Modificado)";
+    }
+</script>
+
+</section>
+
+<section id="contacto">
+    <h2>Contacto</h2>
+    <form>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="email">Correo:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="motivo">Motivo del mensaje:</label>
+        <select id="motivo" name="motivo">
+            <option value="trabajo">Propuesta de trabajo</option>
+            <option value="colaboracion">Colaboración</option>
+            <option value="consulta">Consulta</option>
+        </select>
+
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje"></textarea>
+
+        <input type="submit" value="Enviar">
+    </form>
+</section>
+
+<footer>
+    <p>&copy; 2025 - Diego Marquez</p>
+</footer>
+
+<script>
+    // Lista interna de proyectos (array de objetos)
+    let proyectos = [
+        { nombre: "Portafolio Personal", descripcion: "Página web para mostrar mis trabajos y contacto.", año: 2025 },
+        { nombre: "Gestor de Tareas", descripcion: "Aplicación web para organizar tareas diarias.", año: 2024 }
+    ];
+
+    // Actualiza la tabla HTML con los proyectos del array
+    function actualizarTabla() {
+        const tbody = document.querySelector("#tabla-proyectos tbody");
+        tbody.innerHTML = ""; // Limpiar tabla antes de actualizar
+
+        proyectos.forEach(proyecto => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${proyecto.nombre}</td>
+                <td>${proyecto.descripcion}</td>
+                <td>${proyecto.año}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // Agrega un proyecto nuevo usando prompt para pedir datos
+    function agregarProyecto() {
+        const nombre = prompt("Nombre del nuevo proyecto:");
+        if (!nombre) return alert("No se agregó proyecto, falta el nombre.");
+
+        const descripcion = prompt("Descripción del proyecto:");
+        if (!descripcion) return alert("No se agregó proyecto, falta la descripción.");
+
+        const año = prompt("Año del proyecto:");
+        if (!año || isNaN(año)) return alert("No se agregó proyecto, el año es inválido.");
+
+        proyectos.push({ nombre, descripcion, año: Number(año) });
+        actualizarTabla();
+        alert("Proyecto agregado correctamente.");
+    }
+
+    // Elimina el último proyecto de la lista
+    function eliminarProyecto() {
+        if (proyectos.length === 0) {
+            alert("No hay proyectos para eliminar.");
+            return;
+        }
+        const eliminado = proyectos.pop();
+        actualizarTabla();
+        alert(`Proyecto "${eliminado.nombre}" eliminado.`);
+    }
+
+    // Verifica la cantidad de proyectos y usa estructuras if, for y while
+    function verificarProyectos() {
+        if (proyectos.length > 2) {
+            alert(`Tienes más de 2 proyectos. Total: ${proyectos.length}`);
+        } else {
+            alert(`Tienes pocos proyectos. Total: ${proyectos.length}`);
+        }
+
+        console.log("Listado de proyectos:");
+        for (let i = 0; i < proyectos.length; i++) {
+            console.log(`${i + 1}. ${proyectos[i].nombre}`);
+        }
+
+        // Usamos while para simular eliminar proyectos hasta quedar solo 2 (sin afectar array original)
+        let copiaProyectos = proyectos.slice(); // Copia del array para no modificar original
+        while (copiaProyectos.length > 2) {
+            let eliminado = copiaProyectos.pop();
+            console.log(`Eliminado temporalmente: ${eliminado.nombre}`);
+        }
+        console.log("Proyectos finales tras while (simulado):", copiaProyectos);
+    }
+
+    // Inicializa la tabla al cargar la página
+    actualizarTabla();
+</script>
+
+</body>
+</html>
