@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mi Portafolio</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+    }
+    header, footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 1em;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    nav {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+    nav a {
+        color: white;
+        text-decoration: none;
+    }
+    section {
+        padding: 20px;
+        max-width: 1000px;
+        margin: auto;
+        background: white;
+        margin-top: 20px;
+        border-radius: 8px;
+    }
+    .mi-foto {
+        display: block;
+        margin: 20px auto;
+        width: 200px;
+        height: auto;
+        border-radius: 50%;
+    }
+    .tabla-contenedor {
+        overflow-x: auto;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 500px;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+    }
+    .grid-proyectos {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+    }
+    .proyecto {
+        background: #eee;
+        padding: 15px;
+        border-radius: 8px;
+        position: relative;
+    }
+    .proyecto-destacado {
+        border: 2px solid red;
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background: yellow;
+        padding: 5px;
+        z-index: 10;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    button {
+        margin-top: 10px;
+        padding: 10px 15px;
+        font-size: 1em;
+        cursor: pointer;
+        border-radius: 5px;
+        border: none;
+        background-color: #333;
+        color: white;
+        transition: background-color 0.3s;
+    }
+    button:hover {
+        background-color: #555;
+    }
+    .resaltado {
+        background-color: yellow;
+        border: 2px solid red;
+        font-weight: bold;
+    }
+    @media (min-width: 600px) {
+        body {
+            background-color: #e6f7ff;
+        }
+        nav {
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+    }
+    @media (min-width: 900px) {
+        body {
+            background-color: #fffbe6;
+        }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Diego Marquez</h1>
+    <nav>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#clima">Clima</a>
+        <a href="#pokemon">Pokémon</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+</header>
+
+<section id="sobre-mi">
+    <h2>Sobre mí</h2>
+    <p>Soy estudiante de Ingeniería en Sistemas Computacionales, apasionado por la programación web y el desarrollo de software.</p>
+    <img src="imagenes/foto1.jpg" alt="Mi foto" class="mi-foto">
+</section>
+
+<!-- Sección Clima -->
+<section id="clima">
+    <h2>Consulta el Clima</h2>
+    <input type="text" id="ciudadInput" placeholder="Escribe una ciudad">
+    <button onclick="buscarClima()">Ver clima</button>
+    <div id="resultadoClima" style="margin-top:10px;"></div>
+</section>
+
+<!-- Sección Proyectos -->
+<section id="proyectos">
+    <h2>Proyectos</h2>
+    <div class="grid-proyectos">
+        <div class="proyecto">
+            <div class="proyecto-destacado">★</div>
+            <h3>Portafolio Personal</h3>
+            <p>Página web para mostrar mis trabajos y contacto.</p>
+        </div>
+        <div class="proyecto">
+            <h3>Gestor de Tareas</h3>
+            <p>Aplicación web para organizar tareas diarias.</p>
+        </div>
+    </div>
+    <div class="tabla-contenedor">
+        <table id="tabla-proyectos">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Año</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Portafolio Personal</td>
+                    <td>Página web para mostrar mis trabajos y contacto.</td>
+                    <td>2025</td>
+                </tr>
+                <tr>
+                    <td>Gestor de Tareas</td>
+                    <td>Aplicación web para organizar tareas diarias.</td>
+                    <td>2024</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button onclick="agregarProyecto()">Agregar proyecto</button>
+    <button onclick="eliminarProyecto()">Eliminar último proyecto</button>
+    <button onclick="verificarProyectos()">Verificar proyectos</button>
+    <button onclick="resaltarProyecto()">Resaltar primer proyecto</button>
+    <button onclick="agregarNota()">Agregar nota al segundo proyecto</button>
+    <button onclick="cambiarTitulo()">Cambiar título del segundo proyecto</button>
+</section>
+
+<!-- Sección Pokémon -->
+<section id="pokemon">
+    <h2>Pokémon del día</h2>
+    <button onclick="mostrarPokemon()">Mostrar Pokémon aleatorio</button>
+    <div id="pokemonResultado" style="margin-top:15px;"></div>
+</section>
+
+<!-- Sección Contacto -->
+<section id="contacto">
+    <h2>Contacto</h2>
+    <form>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="email">Correo:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="motivo">Motivo del mensaje:</label>
+        <select id="motivo" name="motivo">
+            <option value="trabajo">Propuesta de trabajo</option>
+            <option value="colaboracion">Colaboración</option>
+            <option value="consulta">Consulta</option>
+        </select>
+
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje"></textarea>
+
+        <input type="submit" value="Enviar">
+    </form>
+</section>
+
+<footer>
+    <p>&copy; 2025 - Diego Marquez</p>
+</footer>
+
+<script>
+/* ================= PROYECTOS ================= */
+let proyectos = [
+    { nombre: "Portafolio Personal", descripcion: "Página web para mostrar mis trabajos y contacto.", año: 2025 },
+    { nombre: "Gestor de Tareas", descripcion: "Aplicación web para organizar tareas diarias.", año: 2024 },
+    { nombre: "Aplicación de Clima", descripcion: "App para consultar el clima actual.", año: 2023 },
+    { nombre: "Gestor De Base De Datos", descripcion: "Analisis de Datos.", año: 2025 }
+];
+
+function actualizarTabla() {
+    const tbody = document.querySelector("#tabla-proyectos tbody");
+    tbody.innerHTML = "";
+    proyectos.forEach(p => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${p.nombre}</td><td>${p.descripcion}</td><td>${p.año}</td>`;
+        tbody.appendChild(tr);
+    });
+}
+
+function agregarProyecto() {
+    const nombre = prompt("Nombre del nuevo proyecto:");
+    if (!nombre) return alert("No se agregó proyecto, falta el nombre.");
+    const descripcion = prompt("Descripción del proyecto:");
+    if (!descripcion) return alert("No se agregó proyecto, falta la descripción.");
+    const año = prompt("Año del proyecto:");
+    if (!año || isNaN(año)) return alert("No se agregó proyecto, el año es inválido.");
+    proyectos.push({ nombre, descripcion, año: Number(año) });
+    actualizarTabla();
+    alert("Proyecto agregado correctamente.");
+}
+
+function eliminarProyecto() {
+    if (proyectos.length === 0) return alert("No hay proyectos para eliminar.");
+    const eliminado = proyectos.pop();
+    actualizarTabla();
+    alert(`Proyecto "${eliminado.nombre}" eliminado.`);
+}
+
+function verificarProyectos() {
+    alert(`Total de proyectos: ${proyectos.length}`);
+    console.log("Listado de proyectos:");
+    proyectos.forEach((p,i)=>console.log(`${i+1}. ${p.nombre}`));
+}
+
+function resaltarProyecto() {
+    const primerProyecto = document.querySelector(".grid-proyectos .proyecto");
+    primerProyecto.classList.toggle("resaltado");
+}
+
+function agregarNota() {
+    const segundoProyecto = document.querySelectorAll(".grid-proyectos .proyecto")[1];
+    const nuevaNota = document.createElement("p");
+    nuevaNota.innerHTML = "📌 Nueva actualización disponible";
+    segundoProyecto.appendChild(nuevaNota);
+}
+
+function cambiarTitulo() {
+    const segundoTitulo = document.querySelectorAll(".grid-proyectos .proyecto h3")[1];
+    segundoTitulo.innerHTML = "Gestor de Tareas (Modificado)";
+}
+
+actualizarTabla();
+
+/* ================= CLIMA ================= */
+async function buscarClima() {
+    const input = document.getElementById("ciudadInput");
+    const ciudad = input.value.trim();
+    const resultado = document.getElementById("resultadoClima");
+    const apiKey = "2388e6d49950c0365d96618c8f172f49";
+
+    if (!ciudad) {
+        alert("Por favor ingresa una ciudad");
+        return;
+    }
+
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(ciudad)}&appid=${apiKey}&units=metric&lang=es`;
+    resultado.innerHTML = "<p>Buscando…</p>";
+
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (!res.ok) {
+            const detalle = data && data.message ? data.message : "Error desconocido";
+            throw new Error(`Error ${res.status}: ${detalle}`);
+        }
+
+        resultado.innerHTML = `
+          <h4>${data.name}, ${data.sys.country}</h4>
+          <p>🌡️ Temperatura: ${data.main.temp} °C</p>
+          <p>☁️ Clima: ${data.weather[0].description}</p>
+          <p>💨 Viento: ${data.wind.speed} m/s</p>
+        `;
+    } catch (e) {
+        resultado.innerHTML = `<p style="color:red;">No se pudo obtener el clima: ${e.message}</p>`;
+        console.error(e);
+    }
+}
+
+/* ================= POKÉMON ================= */
+async function mostrarPokemon() {
+    const resultado = document.getElementById("pokemonResultado");
+    const id = Math.floor(Math.random() * 898) + 1;
+    const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+
+    resultado.innerHTML = "<p>Cargando Pokémon…</p>";
+
+    try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("No se pudo obtener el Pokémon");
+
+        const data = await res.json();
+        resultado.innerHTML = `
+            <h3>${capitalize(data.name)}</h3>
+            <img src="${data.sprites.front_default}" alt="${data.name}">
+            <p>Tipo: ${data.types.map(t => t.type.name).join(", ")}</p>
+            <p>Altura: ${data.height / 10} m | Peso: ${data.weight / 10} kg</p>
+        `;
+    } catch (error) {
+        resultado.innerHTML = `<p style="color:red;">${error.message}</p>`;
+    }
+}
+
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+</script>
+
+</body>
+</html>
