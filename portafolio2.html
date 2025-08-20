@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS Bundle (incluye Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Mi Portafolio</title>
@@ -180,12 +186,14 @@
             </tbody>
         </table>
     </div>
-    <button onclick="agregarProyecto()">Agregar proyecto</button>
-    <button onclick="eliminarProyecto()">Eliminar último proyecto</button>
-    <button onclick="verificarProyectos()">Verificar proyectos</button>
-    <button onclick="resaltarProyecto()">Resaltar primer proyecto</button>
-    <button onclick="agregarNota()">Agregar nota al segundo proyecto</button>
-    <button onclick="cambiarTitulo()">Cambiar título del segundo proyecto</button>
+    <div class="d-flex flex-wrap gap-2 mb-3">
+    <button class="btn btn-primary" onclick="agregarProyecto()">Agregar proyecto</button>
+    <button class="btn btn-danger" onclick="eliminarProyecto()">Eliminar último proyecto</button>
+    <button class="btn btn-warning" onclick="verificarProyectos()">Verificar proyectos</button>
+    <button class="btn btn-info" onclick="resaltarProyecto()">Resaltar primer proyecto</button>
+    <button class="btn btn-secondary" onclick="agregarNota()">Agregar nota al segundo proyecto</button>
+    <button class="btn btn-success" onclick="cambiarTitulo()">Cambiar título del segundo proyecto</button>
+</div>
 </section>
 
 <!-- Sección Pokémon -->
@@ -199,23 +207,34 @@
 <section id="contacto">
     <h2>Contacto</h2>
     <form>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
+      <form>
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre:</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" required>
+    </div>
 
-        <label for="email">Correo:</label>
-        <input type="email" id="email" name="email" required>
+    <div class="mb-3">
+        <label for="email" class="form-label">Correo:</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+    </div>
 
-        <label for="motivo">Motivo del mensaje:</label>
-        <select id="motivo" name="motivo">
+    <div class="mb-3">
+        <label for="motivo" class="form-label">Motivo del mensaje:</label>
+        <select id="motivo" class="form-select" name="motivo">
             <option value="trabajo">Propuesta de trabajo</option>
             <option value="colaboracion">Colaboración</option>
             <option value="consulta">Consulta</option>
         </select>
+    </div>
 
-        <label for="mensaje">Mensaje:</label>
-        <textarea id="mensaje" name="mensaje"></textarea>
+    <div class="mb-3">
+        <label for="mensaje" class="form-label">Mensaje:</label>
+        <textarea id="mensaje" class="form-control" name="mensaje"></textarea>
+    </div>
 
-        <input type="submit" value="Enviar">
+    <input type="submit" class="btn btn-success" value="Enviar">
+</form>
+  
     </form>
 </section>
 
