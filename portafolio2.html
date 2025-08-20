@@ -349,7 +349,63 @@ async function mostrarPokemon() {
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+/* ================= VALIDACIÓN DE FORMULARIO ================= */
+const contactoForm = document.querySelector("#contacto form");
+const mensajeError = document.createElement("div");
+mensajeError.style.marginTop = "10px";
+contactoForm.appendChild(mensajeError);
+
+contactoForm.addEventListener("submit", function(e) {
+    e.preventDefault(); // evita envío automático
+
+    // Limpiamos mensajes previos
+    mensajeError.textContent = "";
+    mensajeError.style.color = "red";
+
+    // Tomamos valores
+    const nombre = document.getElementById("nombre").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const motivo = document.getElementById("motivo").value;
+    const mensaje = document.getElementById("mensaje").value.trim();
+
+    let errores = [];
+
+    // Validaciones
+    if (nombre.length < 3) {
+        errores.push("El nombre debe tener al menos 3 caracteres");
+        document.getElementById("nombre").style.border = "2px solid red";
+    } else {
+        document.getElementById("nombre").style.border = "";
+    }
+
+    if (!email.includes("@") || !email.includes(".")) {
+        errores.push("El correo no es válido");
+        document.getElementById("email").style.border = "2px solid red";
+    } else {
+        document.getElementById("email").style.border = "";
+    }
+
+    if (mensaje.length < 10) {
+        errores.push("El mensaje debe tener al menos 10 caracteres");
+        document.getElementById("mensaje").style.border = "2px solid red";
+    } else {
+        document.getElementById("mensaje").style.border = "";
+    }
+
+    // Mostrar errores o éxito
+    if (errores.length > 0) {
+        mensajeError.innerHTML = errores.join("<br>");
+    } else {
+        mensajeError.style.color = "green";
+        mensajeError.textContent = "Formulario enviado correctamente ✅";
+        contactoForm.reset();
+        // Aquí podrías agregar envío real con fetch/AJAX si quieres
+    }
+});
+
 </script>
+
 
 </body>
 </html>
